@@ -9,33 +9,14 @@ Este proyecto personal utiliza **SQL** para analizar datos reales de accidentes 
 * **Fuente de Datos:** [Dades Obertes de la Generalitat de Catalunya](https://analisi.transparenciacatalunya.cat/)
 
 ## 📂 Estructura del Proyecto
-1. `01_limpieza_datos.sql`: Script de creación y normalización de la tabla a partir de los datos crudos (CSV):
-
-CREATE TABLE accidents AS 
-SELECT 
-    "Any" AS anio,
-    dat AS fecha,
-    hor AS hora,
-    grupHor AS franja_horaria,
-    grupDiaLab AS tipo_dia,
-    D_TIPUS_VIA AS tipo_via,
-    D_CLIMATOLOGIA AS clima,
-    D_SUPERFICIE AS estado_superficie,
-    D_LLUMINOSITAT AS iluminacion,
-    tipAcc AS tipo_accidente,
-    CAST(F_MORTS AS INTEGER) AS fallecidos,
-    CAST(F_FERITS_GREUS AS INTEGER) AS heridos_graves,
-    CAST(F_FERITS_LLEUS AS INTEGER) AS heridos_leves,
-    CAST(F_VICTIMES AS INTEGER) AS total_victimas,
-    CAST(F_VIANANTS_IMPLICADES AS INTEGER) AS peatones_implicados,
-    CAST(F_BICICLETES_IMPLICADES AS INTEGER) AS bicicletas_implicadas,
-    CAST(F_MOTOCICLETES_IMPLICADES AS INTEGER) AS motos_implicadas
-FROM accidents_raw;
-
-**Opcional:** Borramos la tabla original para gestionar el espacio.
-DROP TABLE accidents_raw;
-
-2. `02_analisis_exploratorio.sql`: Consultas SQL para responder a preguntas de negocio sobre la seguridad vial en el municipio.
+1. `01_limpieza_datos.sql`: Script de creación y normalización de la tabla a partir de los datos crudos (CSV). Incluye limpieza de datos y optimización de tipos.
+2. `02_analisis_exploratorio.sql`: Consultas SQL diseñadas para responder a preguntas clave de negocio sobre la seguridad vial en el municipio, utilizando agrupaciones, cruces y filtrados temporales.
 
 ## 📊 Hallazgos Principales (Insights)
---Continue
+* **📈 Pico de Siniestralidad:** Se detecta un pico histórico de accidentes graves en el año 2023 (46 accidentes), duplicando la media de la década anterior en el municipio.
+* **🚶‍♂️ Usuarios Vulnerables:** El incremento de 2023 no se debe a colisiones entre coches convencionales o bicicletas, sino a un aumento crítico en los **atropellos a peatones (+130%)** y **accidentes de motocicleta (+70%)** respecto al año anterior.
+* **🕒 Perfil de Riesgo Temporal:** El atropello típico no es nocturno ni ocurre en fines de semana; el 69% ocurren en la franja de **Tarde**, siendo las tardes de los **días laborables** el momento de máximo riesgo. Esto coincide con los picos de movilidad escolar, laboral y comercial.
+* **☀️ El Factor Lumínico (Mito Desmentido):** La hipótesis de que la falta de luz artificial en invierno provoca más accidentes queda descartada. El 76% de todos los siniestros graves de 2023 ocurrieron a plena luz del día ("De dia, dia clar"). El problema principal radica en el volumen de tráfico y distracciones.
+
+## 💡 Conclusión y Recomendaciones
+A partir del análisis de los datos, se concluye que las políticas de prevención del ayuntamiento **no** deberían priorizar el ocio nocturno o la iluminación de las vías, sino que deberían enfocarse en **reforzar la seguridad en los pasos de peatones (guardia urbana, señalización, semáforos) durante las tardes de lunes a viernes**, protegiendo así a los usuarios más vulnerables en las horas punta de movilidad de la ciudad.
