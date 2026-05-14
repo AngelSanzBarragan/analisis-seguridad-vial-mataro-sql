@@ -9,7 +9,32 @@ Este proyecto personal utiliza **SQL** para analizar datos reales de accidentes 
 * **Fuente de Datos:** [Dades Obertes de la Generalitat de Catalunya](https://analisi.transparenciacatalunya.cat/)
 
 ## 📂 Estructura del Proyecto
-1. `01_limpieza_datos.sql`: Script de creación y normalización de la tabla a partir de los datos crudos (CSV).
+1. `01_limpieza_datos.sql`: Script de creación y normalización de la tabla a partir de los datos crudos (CSV):
+
+CREATE TABLE accidents AS 
+SELECT 
+    "Any" AS anio,
+    dat AS fecha,
+    hor AS hora,
+    grupHor AS franja_horaria,
+    grupDiaLab AS tipo_dia,
+    D_TIPUS_VIA AS tipo_via,
+    D_CLIMATOLOGIA AS clima,
+    D_SUPERFICIE AS estado_superficie,
+    D_LLUMINOSITAT AS iluminacion,
+    tipAcc AS tipo_accidente,
+    CAST(F_MORTS AS INTEGER) AS fallecidos,
+    CAST(F_FERITS_GREUS AS INTEGER) AS heridos_graves,
+    CAST(F_FERITS_LLEUS AS INTEGER) AS heridos_leves,
+    CAST(F_VICTIMES AS INTEGER) AS total_victimas,
+    CAST(F_VIANANTS_IMPLICADES AS INTEGER) AS peatones_implicados,
+    CAST(F_BICICLETES_IMPLICADES AS INTEGER) AS bicicletas_implicadas,
+    CAST(F_MOTOCICLETES_IMPLICADES AS INTEGER) AS motos_implicadas
+FROM accidents_raw;
+
+**Opcional:** Borramos la tabla original para gestionar el espacio.
+DROP TABLE accidents_raw;
+
 2. `02_analisis_exploratorio.sql`: Consultas SQL para responder a preguntas de negocio sobre la seguridad vial en el municipio.
 
 ## 📊 Hallazgos Principales (Insights)
